@@ -1,0 +1,6 @@
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('electronAPI', {
+    changeColor: (color) => ipcRenderer.send('change-color', color),
+    onSetColor: (callback) => ipcRenderer.on('set-color', (_, color) => callback(color))
+});

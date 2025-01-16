@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Electron App</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My Electron App!</h1>
+    <button class="red">Red</button>
+    <button class="blue">Blue</button>
+    <button class="yellow">Yellow</button>
+    <button class="sound">Play Sound</button>
+
+    <audio id="sound" src="./sound.mp3" preload="auto"></audio>
+
+    <script>
+        // Add event listeners to buttons
+        document.querySelector('.red').addEventListener('click', () => {
+            window.electronAPI.changeColor('red');
+        });
+
+        document.querySelector('.blue').addEventListener('click', () => {
+            window.electronAPI.changeColor('blue');
+        });
+
+        document.querySelector('.yellow').addEventListener('click', () => {
+            window.electronAPI.changeColor('yellow');
+        });
+
+        document.querySelector('.sound').addEventListener('click', () => {
+            const audio = document.getElementById('sound');
+            audio.play();
+        });
+
+        // Listen for color changes from the main process
+        window.electronAPI.onSetColor((color) => {
+            document.body.style.backgroundColor = color;
+        });
+    </script>
+</body>
+</html>
